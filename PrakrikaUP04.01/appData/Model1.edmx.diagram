@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="2f23b4f2f1a743918f0b32204144685b" Name="Diagram1">
+        <EntityTypeShape EntityType="PraktikaProninModel.Class" Width="1.5" PointX="3" PointY="8.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="PraktikaProninModel.Employee" Width="1.5" PointX="3" PointY="3.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="PraktikaProninModel.Employee_class" Width="1.5" PointX="5.25" PointY="4.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="PraktikaProninModel.Employee_Subject" Width="1.5" PointX="5.25" PointY="1.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="PraktikaProninModel.Payment" Width="1.5" PointX="5.25" PointY="9.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="PraktikaProninModel.Position" Width="1.5" PointX="0.75" PointY="4.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="PraktikaProninModel.Subject" Width="1.5" PointX="3" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="PraktikaProninModel.sysdiagrams" Width="1.5" PointX="7.75" PointY="1.625" IsExpanded="true" />
+        <AssociationConnector Association="PraktikaProninModel.FK_Employee_class_Class" ManuallyRouted="false" />
+        <AssociationConnector Association="PraktikaProninModel.FK_Employee_class_Employee" ManuallyRouted="false" />
+        <AssociationConnector Association="PraktikaProninModel.FK_Employee_Position" ManuallyRouted="false" />
+        <AssociationConnector Association="PraktikaProninModel.FK_Employee_Subject_Employee" ManuallyRouted="false" />
+        <AssociationConnector Association="PraktikaProninModel.FK_Payment_Employee" ManuallyRouted="false" />
+        <AssociationConnector Association="PraktikaProninModel.FK_Employee_Subject_Subject" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

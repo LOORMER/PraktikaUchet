@@ -1,0 +1,230 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="PraktikaProninModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="Class">
+    <Key>
+      <PropertyRef Name="Class_id" />
+    </Key>
+    <Property Name="Class_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Class_name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="Employee_class" Relationship="Self.FK_Employee_class_Class" FromRole="Class" ToRole="Employee_class" />
+  </EntityType>
+  <EntityType Name="Employee">
+    <Key>
+      <PropertyRef Name="Employee_id" />
+    </Key>
+    <Property Name="Employee_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Surname" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Middle_name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Birth_date" Type="DateTime" Precision="0" />
+    <Property Name="Phone_number" Type="Int32" />
+    <Property Name="Employment_date" Type="DateTime" Precision="0" />
+    <Property Name="Position_id" Type="Int32" />
+    <NavigationProperty Name="Employee_class" Relationship="Self.FK_Employee_class_Employee" FromRole="Employee" ToRole="Employee_class" />
+    <NavigationProperty Name="Position" Relationship="Self.FK_Employee_Position" FromRole="Employee" ToRole="Position" />
+    <NavigationProperty Name="Employee_Subject" Relationship="Self.FK_Employee_Subject_Employee" FromRole="Employee" ToRole="Employee_Subject" />
+    <NavigationProperty Name="Payment" Relationship="Self.FK_Payment_Employee" FromRole="Employee" ToRole="Payment" />
+  </EntityType>
+  <EntityType Name="Employee_class">
+    <Key>
+      <PropertyRef Name="employee_id" />
+    </Key>
+    <Property Name="employee_id" Type="Int32" Nullable="false" />
+    <Property Name="class_id" Type="Int32" />
+    <NavigationProperty Name="Class" Relationship="Self.FK_Employee_class_Class" FromRole="Employee_class" ToRole="Class" />
+    <NavigationProperty Name="Employee" Relationship="Self.FK_Employee_class_Employee" FromRole="Employee_class" ToRole="Employee" />
+  </EntityType>
+  <EntityType Name="Employee_Subject">
+    <Key>
+      <PropertyRef Name="employee_id" />
+    </Key>
+    <Property Name="employee_id" Type="Int32" Nullable="false" />
+    <Property Name="subject_id" Type="Int32" />
+    <NavigationProperty Name="Employee" Relationship="Self.FK_Employee_Subject_Employee" FromRole="Employee_Subject" ToRole="Employee" />
+    <NavigationProperty Name="Subject" Relationship="Self.FK_Employee_Subject_Subject" FromRole="Employee_Subject" ToRole="Subject" />
+  </EntityType>
+  <EntityType Name="Payment">
+    <Key>
+      <PropertyRef Name="Payment_id" />
+    </Key>
+    <Property Name="Payment_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="employee_id" Type="Int32" Nullable="false" />
+    <Property Name="payment_date" Type="DateTime" Precision="0" />
+    <Property Name="amount" Type="Decimal" Precision="10" Scale="2" />
+    <NavigationProperty Name="Employee" Relationship="Self.FK_Payment_Employee" FromRole="Payment" ToRole="Employee" />
+  </EntityType>
+  <EntityType Name="Position">
+    <Key>
+      <PropertyRef Name="Position_id" />
+    </Key>
+    <Property Name="Position_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Position_name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Salary" Type="Int32" />
+    <NavigationProperty Name="Employee" Relationship="Self.FK_Employee_Position" FromRole="Position" ToRole="Employee" />
+  </EntityType>
+  <EntityType Name="Subject">
+    <Key>
+      <PropertyRef Name="Subjt_id" />
+    </Key>
+    <Property Name="Subjt_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Subject_name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="Employee_Subject" Relationship="Self.FK_Employee_Subject_Subject" FromRole="Subject" ToRole="Employee_Subject" />
+  </EntityType>
+  <EntityType Name="sysdiagrams">
+    <Key>
+      <PropertyRef Name="diagram_id" />
+    </Key>
+    <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="principal_id" Type="Int32" Nullable="false" />
+    <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="version" Type="Int32" />
+    <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+  </EntityType>
+  <Association Name="FK_Employee_class_Class">
+    <End Role="Class" Type="Self.Class" Multiplicity="0..1" />
+    <End Role="Employee_class" Type="Self.Employee_class" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Class">
+        <PropertyRef Name="Class_id" />
+      </Principal>
+      <Dependent Role="Employee_class">
+        <PropertyRef Name="class_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Employee_class_Employee">
+    <End Role="Employee" Type="Self.Employee" Multiplicity="1" />
+    <End Role="Employee_class" Type="Self.Employee_class" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="Employee">
+        <PropertyRef Name="Employee_id" />
+      </Principal>
+      <Dependent Role="Employee_class">
+        <PropertyRef Name="employee_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Employee_Position">
+    <End Role="Position" Type="Self.Position" Multiplicity="0..1" />
+    <End Role="Employee" Type="Self.Employee" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Position">
+        <PropertyRef Name="Position_id" />
+      </Principal>
+      <Dependent Role="Employee">
+        <PropertyRef Name="Position_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Employee_Subject_Employee">
+    <End Role="Employee" Type="Self.Employee" Multiplicity="1" />
+    <End Role="Employee_Subject" Type="Self.Employee_Subject" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="Employee">
+        <PropertyRef Name="Employee_id" />
+      </Principal>
+      <Dependent Role="Employee_Subject">
+        <PropertyRef Name="employee_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Payment_Employee">
+    <End Role="Employee" Type="Self.Employee" Multiplicity="1" />
+    <End Role="Payment" Type="Self.Payment" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Employee">
+        <PropertyRef Name="Employee_id" />
+      </Principal>
+      <Dependent Role="Payment">
+        <PropertyRef Name="employee_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Employee_Subject_Subject">
+    <End Role="Subject" Type="Self.Subject" Multiplicity="0..1" />
+    <End Role="Employee_Subject" Type="Self.Employee_Subject" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Subject">
+        <PropertyRef Name="Subjt_id" />
+      </Principal>
+      <Dependent Role="Employee_Subject">
+        <PropertyRef Name="subject_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="PraktikaProninEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Class" EntityType="Self.Class" />
+    <EntitySet Name="Employee" EntityType="Self.Employee" />
+    <EntitySet Name="Employee_class" EntityType="Self.Employee_class" />
+    <EntitySet Name="Employee_Subject" EntityType="Self.Employee_Subject" />
+    <EntitySet Name="Payment" EntityType="Self.Payment" />
+    <EntitySet Name="Position" EntityType="Self.Position" />
+    <EntitySet Name="Subject" EntityType="Self.Subject" />
+    <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" />
+    <AssociationSet Name="FK_Employee_class_Class" Association="Self.FK_Employee_class_Class">
+      <End Role="Class" EntitySet="Class" />
+      <End Role="Employee_class" EntitySet="Employee_class" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Employee_class_Employee" Association="Self.FK_Employee_class_Employee">
+      <End Role="Employee" EntitySet="Employee" />
+      <End Role="Employee_class" EntitySet="Employee_class" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Employee_Position" Association="Self.FK_Employee_Position">
+      <End Role="Position" EntitySet="Position" />
+      <End Role="Employee" EntitySet="Employee" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Employee_Subject_Employee" Association="Self.FK_Employee_Subject_Employee">
+      <End Role="Employee" EntitySet="Employee" />
+      <End Role="Employee_Subject" EntitySet="Employee_Subject" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Payment_Employee" Association="Self.FK_Payment_Employee">
+      <End Role="Employee" EntitySet="Employee" />
+      <End Role="Payment" EntitySet="Payment" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Employee_Subject_Subject" Association="Self.FK_Employee_Subject_Subject">
+      <End Role="Subject" EntitySet="Subject" />
+      <End Role="Employee_Subject" EntitySet="Employee_Subject" />
+    </AssociationSet>
+    <FunctionImport Name="sp_alterdiagram">
+      <Parameter Name="diagramname" Mode="In" Type="String" />
+      <Parameter Name="owner_id" Mode="In" Type="Int32" />
+      <Parameter Name="version" Mode="In" Type="Int32" />
+      <Parameter Name="definition" Mode="In" Type="Binary" />
+    </FunctionImport>
+    <FunctionImport Name="sp_creatediagram">
+      <Parameter Name="diagramname" Mode="In" Type="String" />
+      <Parameter Name="owner_id" Mode="In" Type="Int32" />
+      <Parameter Name="version" Mode="In" Type="Int32" />
+      <Parameter Name="definition" Mode="In" Type="Binary" />
+    </FunctionImport>
+    <FunctionImport Name="sp_dropdiagram">
+      <Parameter Name="diagramname" Mode="In" Type="String" />
+      <Parameter Name="owner_id" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="sp_helpdiagramdefinition" ReturnType="Collection(PraktikaProninModel.sp_helpdiagramdefinition_Result)">
+      <Parameter Name="diagramname" Mode="In" Type="String" />
+      <Parameter Name="owner_id" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="sp_helpdiagrams" ReturnType="Collection(PraktikaProninModel.sp_helpdiagrams_Result)">
+      <Parameter Name="diagramname" Mode="In" Type="String" />
+      <Parameter Name="owner_id" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="sp_renamediagram">
+      <Parameter Name="diagramname" Mode="In" Type="String" />
+      <Parameter Name="owner_id" Mode="In" Type="Int32" />
+      <Parameter Name="new_diagramname" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="sp_upgraddiagrams" />
+  </EntityContainer>
+  <ComplexType Name="sp_helpdiagramdefinition_Result">
+    <Property Type="Int32" Name="version" Nullable="true" />
+    <Property Type="Binary" Name="definition" Nullable="true" />
+  </ComplexType>
+  <ComplexType Name="sp_helpdiagrams_Result">
+    <Property Type="String" Name="Database" Nullable="true" MaxLength="128" />
+    <Property Type="String" Name="Name" Nullable="false" MaxLength="128" />
+    <Property Type="Int32" Name="ID" Nullable="false" />
+    <Property Type="String" Name="Owner" Nullable="true" MaxLength="128" />
+    <Property Type="Int32" Name="OwnerID" Nullable="false" />
+  </ComplexType>
+</Schema>
