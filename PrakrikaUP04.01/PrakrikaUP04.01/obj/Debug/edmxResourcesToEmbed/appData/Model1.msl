@@ -1,0 +1,80 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="Хранилище Database1ModelContainer" CdmEntityContainer="Database1Entities">
+    <EntitySetMapping Name="Class">
+      <EntityTypeMapping TypeName="Database1Model.Class">
+        <MappingFragment StoreEntitySet="Class">
+          <ScalarProperty Name="Class_id" ColumnName="Class_id" />
+          <ScalarProperty Name="Class_name" ColumnName="Class_name" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Employee">
+      <EntityTypeMapping TypeName="Database1Model.Employee">
+        <MappingFragment StoreEntitySet="Employee">
+          <ScalarProperty Name="Employee_id" ColumnName="Employee_id" />
+          <ScalarProperty Name="Surname" ColumnName="Surname" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Middle_name" ColumnName="Middle_name" />
+          <ScalarProperty Name="Birth_date" ColumnName="Birth_date" />
+          <ScalarProperty Name="Phone_number" ColumnName="Phone_number" />
+          <ScalarProperty Name="Employment_date" ColumnName="Employment_date" />
+          <ScalarProperty Name="Position_id" ColumnName="Position_id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Employee_class">
+      <EntityTypeMapping TypeName="Database1Model.Employee_class">
+        <MappingFragment StoreEntitySet="Employee_class">
+          <ScalarProperty Name="employee_id" ColumnName="employee_id" />
+          <ScalarProperty Name="class_id" ColumnName="class_id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Employee_Subject">
+      <EntityTypeMapping TypeName="Database1Model.Employee_Subject">
+        <MappingFragment StoreEntitySet="Employee_Subject">
+          <ScalarProperty Name="employee_id" ColumnName="employee_id" />
+          <ScalarProperty Name="subject_id" ColumnName="subject_id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Payment">
+      <EntityTypeMapping TypeName="Database1Model.Payment">
+        <MappingFragment StoreEntitySet="Payment">
+          <ScalarProperty Name="Payment_id" ColumnName="Payment_id" />
+          <ScalarProperty Name="employee_id" ColumnName="employee_id" />
+          <ScalarProperty Name="payment_date" ColumnName="payment_date" />
+          <ScalarProperty Name="amount" ColumnName="amount" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Position">
+      <EntityTypeMapping TypeName="Database1Model.Position">
+        <MappingFragment StoreEntitySet="Position">
+          <ScalarProperty Name="Position_id" ColumnName="Position_id" />
+          <ScalarProperty Name="Position_name" ColumnName="Position_name" />
+          <ScalarProperty Name="Salary" ColumnName="Salary" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Subject">
+      <EntityTypeMapping TypeName="Database1Model.Subject">
+        <MappingFragment StoreEntitySet="Subject">
+          <ScalarProperty Name="Subjt_id" ColumnName="Subjt_id" />
+          <ScalarProperty Name="Subject_name" ColumnName="Subject_name" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Users">
+      <EntityTypeMapping TypeName="Database1Model.Users">
+        <MappingFragment StoreEntitySet="Users">
+          <ScalarProperty Name="User_id" ColumnName="User_id" />
+          <ScalarProperty Name="login" ColumnName="login" />
+          <ScalarProperty Name="password" ColumnName="password" />
+          <ScalarProperty Name="role" ColumnName="role" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

@@ -1,0 +1,176 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="Хранилище Database1Model" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="Class">
+    <Key>
+      <PropertyRef Name="Class_id" />
+    </Key>
+    <Property Name="Class_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Class_name" Type="nvarchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="Employee">
+    <Key>
+      <PropertyRef Name="Employee_id" />
+    </Key>
+    <Property Name="Employee_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Surname" Type="nvarchar" MaxLength="50" />
+    <Property Name="Name" Type="nvarchar" MaxLength="50" />
+    <Property Name="Middle_name" Type="nvarchar" MaxLength="50" />
+    <Property Name="Birth_date" Type="date" />
+    <Property Name="Phone_number" Type="nvarchar" MaxLength="50" />
+    <Property Name="Employment_date" Type="date" />
+    <Property Name="Position_id" Type="int" />
+  </EntityType>
+  <EntityType Name="Employee_class">
+    <Key>
+      <PropertyRef Name="employee_id" />
+    </Key>
+    <Property Name="employee_id" Type="int" Nullable="false" />
+    <Property Name="class_id" Type="int" />
+  </EntityType>
+  <EntityType Name="Employee_Subject">
+    <Key>
+      <PropertyRef Name="employee_id" />
+    </Key>
+    <Property Name="employee_id" Type="int" Nullable="false" />
+    <Property Name="subject_id" Type="int" />
+  </EntityType>
+  <EntityType Name="Payment">
+    <Key>
+      <PropertyRef Name="Payment_id" />
+    </Key>
+    <Property Name="Payment_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="employee_id" Type="int" Nullable="false" />
+    <Property Name="payment_date" Type="date" />
+    <Property Name="amount" Type="decimal" Precision="10" Scale="2" />
+  </EntityType>
+  <EntityType Name="Position">
+    <Key>
+      <PropertyRef Name="Position_id" />
+    </Key>
+    <Property Name="Position_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Position_name" Type="nvarchar" MaxLength="50" />
+    <Property Name="Salary" Type="int" />
+  </EntityType>
+  <EntityType Name="Subject">
+    <Key>
+      <PropertyRef Name="Subjt_id" />
+    </Key>
+    <Property Name="Subjt_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Subject_name" Type="nvarchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="Users">
+    <Key>
+      <PropertyRef Name="User_id" />
+    </Key>
+    <Property Name="User_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="login" Type="nvarchar" MaxLength="50" />
+    <Property Name="password" Type="nvarchar" MaxLength="50" />
+    <Property Name="role" Type="nvarchar" MaxLength="50" />
+  </EntityType>
+  <Association Name="FK_Employee_class_Class">
+    <End Role="Class" Type="Self.Class" Multiplicity="0..1" />
+    <End Role="Employee_class" Type="Self.Employee_class" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Class">
+        <PropertyRef Name="Class_id" />
+      </Principal>
+      <Dependent Role="Employee_class">
+        <PropertyRef Name="class_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Employee_class_Employee">
+    <End Role="Employee" Type="Self.Employee" Multiplicity="1" />
+    <End Role="Employee_class" Type="Self.Employee_class" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="Employee">
+        <PropertyRef Name="Employee_id" />
+      </Principal>
+      <Dependent Role="Employee_class">
+        <PropertyRef Name="employee_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Employee_Position">
+    <End Role="Position" Type="Self.Position" Multiplicity="0..1" />
+    <End Role="Employee" Type="Self.Employee" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Position">
+        <PropertyRef Name="Position_id" />
+      </Principal>
+      <Dependent Role="Employee">
+        <PropertyRef Name="Position_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Employee_Subject_Employee">
+    <End Role="Employee" Type="Self.Employee" Multiplicity="1" />
+    <End Role="Employee_Subject" Type="Self.Employee_Subject" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="Employee">
+        <PropertyRef Name="Employee_id" />
+      </Principal>
+      <Dependent Role="Employee_Subject">
+        <PropertyRef Name="employee_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Employee_Subject_Subject">
+    <End Role="Subject" Type="Self.Subject" Multiplicity="0..1" />
+    <End Role="Employee_Subject" Type="Self.Employee_Subject" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Subject">
+        <PropertyRef Name="Subjt_id" />
+      </Principal>
+      <Dependent Role="Employee_Subject">
+        <PropertyRef Name="subject_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Payment_Employee">
+    <End Role="Employee" Type="Self.Employee" Multiplicity="1" />
+    <End Role="Payment" Type="Self.Payment" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Employee">
+        <PropertyRef Name="Employee_id" />
+      </Principal>
+      <Dependent Role="Payment">
+        <PropertyRef Name="employee_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="Хранилище Database1ModelContainer">
+    <EntitySet Name="Class" EntityType="Self.Class" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Employee" EntityType="Self.Employee" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Employee_class" EntityType="Self.Employee_class" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Employee_Subject" EntityType="Self.Employee_Subject" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Payment" EntityType="Self.Payment" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Position" EntityType="Self.Position" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Subject" EntityType="Self.Subject" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Users" EntityType="Self.Users" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK_Employee_class_Class" Association="Self.FK_Employee_class_Class">
+      <End Role="Class" EntitySet="Class" />
+      <End Role="Employee_class" EntitySet="Employee_class" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Employee_class_Employee" Association="Self.FK_Employee_class_Employee">
+      <End Role="Employee" EntitySet="Employee" />
+      <End Role="Employee_class" EntitySet="Employee_class" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Employee_Position" Association="Self.FK_Employee_Position">
+      <End Role="Position" EntitySet="Position" />
+      <End Role="Employee" EntitySet="Employee" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Employee_Subject_Employee" Association="Self.FK_Employee_Subject_Employee">
+      <End Role="Employee" EntitySet="Employee" />
+      <End Role="Employee_Subject" EntitySet="Employee_Subject" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Employee_Subject_Subject" Association="Self.FK_Employee_Subject_Subject">
+      <End Role="Subject" EntitySet="Subject" />
+      <End Role="Employee_Subject" EntitySet="Employee_Subject" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Payment_Employee" Association="Self.FK_Payment_Employee">
+      <End Role="Employee" EntitySet="Employee" />
+      <End Role="Payment" EntitySet="Payment" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>
